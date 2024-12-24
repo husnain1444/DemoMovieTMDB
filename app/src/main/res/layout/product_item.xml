@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="Product"
+            type="com.example.mvvm_hilt_db_retrofit_room.models.ProductsItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
+        android:layout_margin="6dp"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="fill_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rating"
+            >
+
+            <!--                android:text='@{"Titile: " + Product.title}'-->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title"
+                app:heading="@{`Title`}"
+                app:text="@{Product.title}"
+                android:maxLines="1"
+                android:layout_margin="12dp"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif-condensed-medium"
+                />
+
+<!--            android:text='@{"Description: "+Product.description}'-->
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                app:heading="@{`Description`}"
+                app:text="@{Product.description}"
+                android:layout_marginLeft="12dp"
+                android:textSize="16sp"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+
+<!--        android:text='@{"Rating: " + Product.rating.component2()}'-->
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Rating"
+            app:heading="@{`Rating`}"
+            app:text="@{String.valueOf(Product.rating.component2())}"
+            android:maxLines="1"
+            android:layout_margin="8dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed-medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
