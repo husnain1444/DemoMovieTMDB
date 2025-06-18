@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MVVM_Hilt_DB_Retrofit_Room"
+rootProject.name = "MoviesTMDB"
 include(":app")
  

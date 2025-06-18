@@ -4,15 +4,15 @@ plugins {
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
-//    id("dagger.hilt.android.plugin")
+    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "com.example.mvvm_hilt_db_retrofit_room"
+    namespace = "com.example.movies"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.mvvm_hilt_db_retrofit_room"
+        applicationId = "com.example.movies"
         minSdk = 33
         targetSdk = 34
         versionCode = 1
@@ -23,6 +23,7 @@ android {
 
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
     buildTypes {
         release {
@@ -49,6 +50,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -75,8 +78,13 @@ dependencies {
     implementation (libs.hilt.android) // Replace with the latest version
     kapt (libs.hilt.android.compiler)
 
+    //Glide Library to show images
+    implementation(libs.glide)
+    kapt(libs.glideCompiler)
+
     //Room for internal DB Sqlite
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+
 }
