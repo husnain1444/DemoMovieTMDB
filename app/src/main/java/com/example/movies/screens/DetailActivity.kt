@@ -1,4 +1,4 @@
-package com.example.movies
+package com.example.movies.screens
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.example.movies.R
 import com.example.movies.databinding.ActivityDetailBinding
 import com.example.movies.models.Result
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +23,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_detail)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.detail)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

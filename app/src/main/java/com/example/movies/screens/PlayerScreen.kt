@@ -1,4 +1,4 @@
-package com.example.movies
+package com.example.movies.screens
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.example.movies.R
 import com.example.movies.databinding.PlayerScreenBinding
 import com.example.movies.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint

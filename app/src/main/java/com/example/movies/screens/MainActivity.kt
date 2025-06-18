@@ -1,9 +1,11 @@
-package com.example.movies
+package com.example.movies.screens
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,10 +14,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.movies.R
 import com.example.movies.adapters.MovieAdapter
 import com.example.movies.adapters.ParentAdapter
 import com.example.movies.databinding.ActivityMainBinding
 import com.example.movies.models.MoviesClosure
+import com.example.movies.utils.isNetworkAvailable
 import com.example.movies.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 //        setContentView(R.layout.activity_main)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -63,6 +67,9 @@ class MainActivity : AppCompatActivity() {
             Log.e("Movies Closure:", it.toString())
             Log.e("Movies Closure:", it.size.toString())
             val groupedList = it.map { MoviesClosure(it.key, it.value) }
+            if (groupedList.size > 0) {
+                binding.progressBar.visibility = View.GONE
+            }
             binding.closureRV.adapter = ParentAdapter(groupedList) { movieResult ->
                 mainViewModel.setResult(movieResult)
 
@@ -76,8 +83,17 @@ class MainActivity : AppCompatActivity() {
         binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query = v.text.toString()
-                // handle search
-                mainViewModel.loadDataFromAPI(query) // Call After Setting Adapter and observer
+                if (query.trim().isNotEmpty()) {
+                    // handle search
+                    if (isNetworkAvailable(this)) {
+                        binding.progressBar.visibility = View.VISIBLE
+                        mainViewModel.loadDataFromAPI(query) // Call After Setting Adapter and observer
+                    } else {
+                        Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this, "Search Can't be Empty!", Toast.LENGTH_SHORT).show()
+                }
                 true
             } else {
                 false
